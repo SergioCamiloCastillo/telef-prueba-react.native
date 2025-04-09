@@ -14,6 +14,7 @@ Esta es una aplicación realizada en React Native/TypeScript, con arquitectura l
 
 ## Arquitectura
 La aplicación sigue Clean Architecture con las siguientes capas:
+
 src/
 ├── domain/ # Lógica de negocio pura
 │ ├── entities/ (PhotoEntity)
