@@ -17,13 +17,18 @@ La aplicación sigue Clean Architecture con las siguientes capas:
 
 src/
 ├── domain/ # Lógica de negocio pura
+
 │ ├── entities/ (PhotoEntity)
 │ └── usecases/ (Lógica de negocio)
+
 ├── datasources/ # Fuentes de datos
+
 │ ├── repositories/ (PhotoRepository)
 │ └── datasources/ (API)
 ├── presentation/ # UI y componentes
+
 │ └── components/ (CachedImage)
+
 └── store/ # Estado global (Zustand)
 
 ## Flujo de Datos
