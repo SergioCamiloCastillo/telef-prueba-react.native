@@ -1,8 +1,54 @@
-# Welcome to your Expo app 👋
+## Prueba Telef - NTT
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Esta es una aplicación realizada en React Native/TypeScript, con arquitectura limpia, usando Zustand para el manejo del estado de la app. Muestra galería de fotos con scroll infinito, pagina de favoritos, usando la API de Picsum https://picsum.photos/
 
-## Get started
+## Caracteristicas
+* Pantalla principal mostrando una lista de fotos, con la opción de marcar/desmarcar favoritos.
+* Persistencia local con AsyncStorage
+* Pantalla de favoritas en donde podre encontrar las imagenes preferidas y seleccionadas con anterioridad
+* Scroll infinitico con indicador de carga en la obtencion de datos, para que se vayan mostrando de 10 en 10, con el fin de mejorar el rendimiento en la APP.
+* Almacenamiento local de imágenes
+* Zustand para manejo de estado
+* Repository pattern para acceso a datos
+* Separación clara de capas según Clean architecture
+
+## Arquitectura
+La aplicación sigue Clean Architecture con las siguientes capas:
+src/
+├── domain/ # Lógica de negocio pura
+│ ├── entities/ (PhotoEntity)
+│ └── usecases/ (Lógica de negocio)
+├── datasources/ # Fuentes de datos
+│ ├── repositories/ (PhotoRepository)
+│ └── datasources/ (API)
+├── presentation/ # UI y componentes
+│ └── components/ (CachedImage)
+└── store/ # Estado global (Zustand)
+
+## Flujo de Datos
+
+Cuando se ejecuta cualquier tarea que consuma datos, va primero hacia el store (Zustand), que a su vez tiene mencionado a que Use Case necesita traer los datos mediante alguna tarea mencionada en repositorio, trayendo la data del datasource correspondiente.
+
+
+## A tener en cuenta
+El funcionamiento del sistema de caché para la imagen:
+* Al cargar una imagen
+   - Verifica si existe en la caché local (FileSystem.getInfoAsync)
+   - Si existe, usa la versión local
+   - Si no existe, descarga la imagen y la guarda en caché (FileSystem.downloadAsync)
+* Beneficios
+   - Las imágenes se mantienen disponibles sin conexión después de la primera carga
+   - Las imágenes locales se cargan más rápido que las remotas
+   - Reduce el consumo de datos móviles
+   - Las imágenes permanecen en caché entre sesiones de la app
+
+## Herramientas
+* React Native CLI / TypeScript
+* Zustand - Manejo del estado global
+* Axios - Al momento de consumir la API
+* API de Picsum https://picsum.photos/
+
+## Instalación
 
 1. Install dependencies
 
@@ -16,35 +62,6 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Evidencia
+![alt text](image.png)
+![alt text](image-1.png)
